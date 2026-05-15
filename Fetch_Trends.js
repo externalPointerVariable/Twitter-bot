@@ -1,6 +1,7 @@
-import "dotenv/config";
 import { MongoClient } from "mongodb";
 import news from "gnews";
+import dotenv from "dotenv";
+dotenv.config();
 
 const mongoClient = new MongoClient(process.env.MONGO_URI);
 
@@ -24,7 +25,11 @@ async function fetchAndStoreTrends() {
     console.log("DONE");
   } catch (e) {
     console.error(e);
+  } finally {
+    return 0;
   }
 }
+
+fetchAndStoreTrends();
 
 export default fetchAndStoreTrends;

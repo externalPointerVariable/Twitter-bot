@@ -10,10 +10,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@langchain/core": "^1.1.46",
+    "@langchain/google": "^0.1.11",
     "@langchain/google-genai": "^2.1.30",
-    "axios": "^1.16.0",
+    "@xdevplatform/xdk": "^0.5.0",
     "dotenv": "^17.4.2",
     "gnews": "^1.0.3",
-    "mongodb": "^7.2.0"
+    "mongodb": "^7.2.0",
+    "nodemon": "^3.1.14",
+    "twitter-api-v2": "^1.29.0"
   }
 }

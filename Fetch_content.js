@@ -1,15 +1,13 @@
-import { HumanMessage } from "@langchain/core/messages";
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatGoogle } from "@langchain/google";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import "dotenv/config";
 
-const model = new ChatGoogleGenerativeAI({
-  model: "gemma-4-31b-it",
+const llm = new ChatGoogle({
   apiKey: process.env.GOOGLE_API_KEY,
-  maxOutputTokens: 2048,
+  model: "gemini-3-flash-preview",
 });
 
-export default async function fetchContent(content) {
-  const systemPrompt = `You are an investigative tech and current affairs journalist. Your goal is to provide a 'Deep Dive' summary of a trending topic in under 240 characters.
+const SystemMessageText = `You are an investigative tech and current affairs journalist. Your goal is to provide a 'Deep Dive' summary of a trending topic in under 240 characters.
 
 RESEARCH PROTOCOL:
 
@@ -29,14 +27,13 @@ Constraints: Strictly under 240 characters. No hashtags. No AI jargon (e.g., 'de
 
 The content is provided below.`;
 
-  const response = await model.invoke([
-    new HumanMessage(
-      systemPrompt,
-      "Headline = ",
-      content.Title,
-      " and Content = ",
-      content.Content,
-    ),
+export default async function fetchContent(content) {
+  const response = await llm.invoke([
+    new SystemMessage(SystemMessageText),
+    new HumanMessage(content),
   ]);
-  return await response.content[1].text;
+
+  console.log(response.text);
+
+  return response.text;
 }
