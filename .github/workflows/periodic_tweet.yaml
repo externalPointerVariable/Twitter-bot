@@ -1,0 +1,29 @@
+name: Periodic Tweeter
+
+on:
+  schedule:
+    # Runs every 2 hours at the start of the hour
+    # '0 2,4,6,8,10 * * *' runs at 2am, 4am, 6am, 8am, 10am UTC
+    # Adjust these hours to fit your preferred Indian Time window
+    - cron: "30 4,6,8,10,12 * * *"
+  workflow_dispatch:
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - name: Generate and Post
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          X_BEARER: ${{secrets.X_BEARER}}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: node Twitter_Post.js # Replace with your actual filename
