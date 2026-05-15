@@ -28,9 +28,11 @@ Constraints: Strictly under 240 characters. No hashtags. No AI jargon (e.g., 'de
 The content is provided below.`;
 
 export default async function fetchContent(content) {
+  console.log(content);
+
   const response = await llm.invoke([
     new SystemMessage(SystemMessageText),
-    new HumanMessage(content),
+    new HumanMessage("contents:", content),
   ]);
 
   return response.text;
