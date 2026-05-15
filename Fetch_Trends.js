@@ -21,8 +21,6 @@ async function fetchAndStoreTrends() {
           Content: article.content,
         }),
     );
-
-    console.log("DONE");
   } catch (e) {
     console.error(e);
   } finally {

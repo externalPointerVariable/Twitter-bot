@@ -37,8 +37,7 @@ export default async function Twitter_Post() {
     const rwClient = client.readWrite;
 
     const response = await rwClient.v2.tweet(postText);
-    console.log("final post:", response);
-    return "DONE";
+    return 0;
   } catch (e) {
     return e;
   }

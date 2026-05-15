@@ -33,7 +33,5 @@ export default async function fetchContent(content) {
     new HumanMessage(content),
   ]);
 
-  console.log(response.text);
-
   return response.text;
 }
