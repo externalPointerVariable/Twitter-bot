@@ -24,7 +24,7 @@ async function fetchAndStoreTrends() {
   } catch (e) {
     console.error(e);
   } finally {
-    return 0;
+    process.exit(0);
   }
 }
 
