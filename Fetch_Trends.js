@@ -1,5 +1,4 @@
 import { MongoClient } from "mongodb";
-import news from "gnews";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -13,13 +12,20 @@ async function fetchAndStoreTrends() {
 
     await trends.deleteMany({});
 
-    const feed = await news.headlines({ n: 20, country: "IN" });
-    feed.forEach(
-      async (article) =>
-        await trends.insertOne({
+    const feed = await fetch(
+      `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEWS_API_KEY}`,
+    )
+      .then((response) => response.json())
+      .then((response) => response.articles);
+
+    await Promise.all(
+      feed.map((article) =>
+        trends.insertOne({
           Title: article.title,
+          Description: article.description,
           Content: article.content,
         }),
+      ),
     );
   } catch (e) {
     console.error(e);
