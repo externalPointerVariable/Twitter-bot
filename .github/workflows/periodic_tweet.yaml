@@ -5,7 +5,7 @@ on:
     # Runs every 2 hours at the start of the hour
     # '0 2,4,6,8,10 * * *' runs at 2am, 4am, 6am, 8am, 10am UTC
     # Adjust these hours to fit your preferred Indian Time window
-    - cron: "30 4,6,8,10,12 * * *"
+    - cron: "30 2,4,6,8,10 * * *"
   workflow_dispatch:
 
 jobs:
