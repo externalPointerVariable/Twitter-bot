@@ -18,19 +18,17 @@ async function fetchAndStoreTrends() {
       .then((response) => response.json())
       .then((response) => response.articles);
 
-    await Promise.all(
-      feed.map((article) =>
-        trends.insertOne({
-          Title: article.title,
-          Description: article.description,
-          Content: article.content,
-        }),
-      ),
-    );
+    if (!feed || !Array.isArray(feed))
+      throw new Error("Articles not found:", feed);
+
+    const result = await trends.insertMany(feed);
+    console.log(result.insertedCount);
   } catch (e) {
     console.error(e);
+    process.exit(-1);
   } finally {
-    process.exit(0);
+    await mongoClient.close();
+    await process.exit(0);
   }
 }
 
