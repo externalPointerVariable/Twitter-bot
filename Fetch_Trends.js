@@ -18,6 +18,9 @@ async function fetchAndStoreTrends() {
       .then((response) => response.json())
       .then((response) => response.articles);
 
+    if (!feed || !Array.isArray(feed))
+      throw new Error("Error fetching content:" + feed);
+
     const result = await trends.insertMany(feed);
     console.log(result.insertedCount);
   } catch (e) {
