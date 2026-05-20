@@ -12,7 +12,10 @@ async function getContent() {
     const db = mongoClient.db("twitter_bot");
     const trends = db.collection("trends");
 
-    const trendItem = await trends.findOneAndDelete({});
+    const trendItem = await trends.findOneAndDelete(
+      {},
+      { sort: { createdAt: -1 } },
+    );
 
     const postContent = await fetchContent(trendItem);
     return postContent;

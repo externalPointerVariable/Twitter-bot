@@ -21,7 +21,14 @@ async function fetchAndStoreTrends() {
     if (!feed || !Array.isArray(feed))
       throw new Error("Error fetching content:" + feed);
 
-    const result = await trends.insertMany(feed);
+    const currentDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+    const oneDayAgo = feed.filter((item) => {
+      const pubDate = new Date(item.publishedAt);
+      return pubDate >= currentDate;
+    });
+
+    const result = await trends.insertMany(oneDayAgo);
     console.log(result.insertedCount);
   } catch (e) {
     console.error(e);
