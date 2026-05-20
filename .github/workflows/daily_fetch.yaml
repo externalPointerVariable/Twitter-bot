@@ -2,13 +2,13 @@ name: Daily Trends Fetcher
 
 on:
   schedule:
-    # Runs at 00:17 UTC (~5:47 AM IST) to avoid the top-of-the-hour traffic jam
+    # Runs at 00:00 UTC (5:30 AM IST) every day
     - cron: "17 0 * * *"
-  workflow_dispatch:
+  workflow_dispatch: # Allows you to run it manually from the UI
 
 jobs:
   fetch:
-    runs-runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,5 +18,5 @@ jobs:
       - name: Run Fetch Script
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
-          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
-        run: node Fetch_Trends.js
+          NEWS_API_KEY: ${{secrets.NEWS_API_KEY}}
+        run: node Fetch_Trends.js # Replace with your actual filename
