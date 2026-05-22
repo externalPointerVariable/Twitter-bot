@@ -22,6 +22,7 @@ async function fetchAndStoreTrends() {
       throw new Error("Error fetching content:" + feed);
 
     const currentDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    currentDate.setDate(currentDate.getDate() - 1);
 
     const oneDayAgo = feed.filter((item) => {
       const pubDate = new Date(item.publishedAt);
