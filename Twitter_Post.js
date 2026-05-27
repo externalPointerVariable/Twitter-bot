@@ -42,6 +42,7 @@ export default async function Twitter_Post() {
     const response = await rwClient.v2.tweet(postText);
     return 0;
   } catch (e) {
+    console.error(e);
     process.exit(1);
   } finally {
     process.exit(0);
